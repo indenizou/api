@@ -1,0 +1,35 @@
+[
+  {
+    chatID: 12711364,
+    companyID: process.env.HUGGY_COMPANY_ID,
+    flowID: 8340,
+    flowToken: 'indicado_email',
+    context: {
+      // 'SYSTEM.TIME_HELLO': 'boa noite',
+      // 'SYSTEM.CHAT_ID': '12711364',
+      // 'SYSTEM.CHAT_CREATED_DATE': '21-01-2019 18:33:44',
+      // 'SYSTEM.DEPARTMENT_NAME': '',
+      // 'SYSTEM.DEPARTMENT_ORDER': '',
+      'SYSTEM.CLIENT_NAME': '',
+      'SYSTEM.CLIENT_FIRST_NAME': '',
+      'SYSTEM.CLIENT_SECOND_NAME': '',
+      'SYSTEM.CLIENT_NUMBER': '',
+      'SYSTEM.CLIENT_EMAIL': '',
+      'SYSTEM.CLIENT_ORGANIZATION_ID': '',
+      'SYSTEM.CLIENT_ORGANIZATION_NAME': '',
+      // 'SYSTEM.COMPANY_NAME': 'Indenizou',
+      // 'SYSTEM.COMPANY_NUMBER': '5531999491487',
+      // 'SYSTEM.AGENT_NAME': '',
+      // 'SYSTEM.AGENT_MAIL': '',
+      // 'SYSTEM.AGENT_PHONE': '',
+      // 'SYSTEM.QUEUE_POSITION': '',
+      // 'SYSTEM.WORKFLOW_ID': '',
+      // 'SYSTEM.WORKFLOW_STEP_ID': '',
+      // 'SYSTEM.CURRENT_MESSAGE': 'acho que é rogerio@doidao@gmail.com',
+      'entrada.motivo': 'Não',
+      'entrada.indicacao': 'Sim! Indique e Ganhe',
+      'indicacao.contactby': 'Whatsapp',
+      'indicado_email.email': 'doidao@gmail.com',
+    }
+  }
+]

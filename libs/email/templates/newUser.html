@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt_BR">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Indenizou</title>
+</head>
+
+<body>
+<table cellpadding="0" cellspacing="0" class="container-for-gmail-android" width="100%">
+  <tr>
+    <td>{{ i18n.welcome_message }}</td>
+  </tr>
+
+  <tr>
+    <td class="free-text" >
+      {{ i18n.invite_message }}
+    </td>
+  </tr>
+
+  <tr>
+    <td>{{ i18n.your_username }} {{ email }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ i18n.your_password }} <pre>{{ password }}</pre></td>
+  </tr>
+
+  <tr>
+    <td class="button">
+      <a href="{{ URL }}">{{ i18n.access }}</a>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
