@@ -6,7 +6,7 @@ const config = require('../config');
 
 exports.subscribe = async (req, res) => {
   const { sandbox } = req.body;
-  const chimpData = null;
+  const chimpData = { mailchimp: {} };
   let subscriber;
 
   if (!sandbox) {
