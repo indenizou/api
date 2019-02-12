@@ -66,8 +66,8 @@ app.get('/hooks/email', (req, res) => res.status(200).send('OK'));
 app.post('/hooks/email', ChimpHooks.chimpEventsHandler);
 
 // Accounts
-app.post('/signin', requireSignin, Authentication.signin);
-app.post('/signup', Authentication.signup);
+app.post('/signin', requireSignin, Authentication.signIn);
+app.post('/signup', Authentication.signUp);
 app.get('/accounts/:userID', requireAuth, Accounts.user);
 
 server.listen(process.env.PORT, process.env.HOST, () => {

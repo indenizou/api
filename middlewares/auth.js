@@ -1,4 +1,4 @@
-module.exports = ({ body: { key }}, res, next) => {
+module.exports = ({ body: { key } }, res, next) => {
   // Return here to skip; return next();
   if (!key) return res.sendStatus(404);
 
