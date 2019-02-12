@@ -34,7 +34,7 @@ const schema = new mongoose.Schema({
   status: {
     type: String,
     enum: config.pipelines,
-    default: config.piplines[0],
+    default: config.pipelines[0],
     required: [true, 'É necessário fornecer "status" (etapa do pipeline)'],
   },
 
