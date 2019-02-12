@@ -1,6 +1,6 @@
 {
   "apps": [{
-    "name": "indenizou-emails",
+    "name": "indenizou-api",
     "script": "./index.js",
     "node_args": "--max-old-space-size=2048",
     "env": {
