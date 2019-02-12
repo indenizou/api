@@ -31,9 +31,16 @@ const Multer = multer({ storage: Files.storage });
 // app.use(config.fileParser.routes, bodyParser.json(config.fileParser.config));
 // app.use(config.fileParser.routes, bodyParser.urlencoded(config.fileParser.config));
 
+app.use(cors());
+app.options('*', cors());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,PATCH,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization');
+  next();
+});
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
-app.use(cors());
 passport.use(passportService.jwtLogin);
 passport.use(passportService.localLogin);
 
