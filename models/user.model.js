@@ -19,7 +19,7 @@ const schema = new mongoose.Schema({
     match: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
     index: { unique: true },
   },
-  phone: { type: String, lowercase: true, trim: true, unique: true },
+  phone: { type: String, lowercase: true, trim: true },
   avatarUrl: { type: String, trim: true },
 
   // Facebook tokens
