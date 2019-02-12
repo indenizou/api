@@ -5,7 +5,8 @@
   "scripts": {
     "up": "yarn upgrade",
     "start": "nodemon -L",
-    "deploy": "rsync -az --exclude 'node_modules*' --exclude '.env' --exclude 'uploads' ./ lion@api.alia.ml:/home/lion/containers/indenizou/api --progress --itemize-changes"
+    "deploy": "rsync -az --exclude 'node_modules*' --exclude '.env' --exclude 'uploads' ./ lion@api.alia.ml:/home/lion/containers/indenizou/api --progress --itemize-changes",
+    "prod": "pm2-docker start --json pm2.json"
   },
   "dependencies": {
     "axios": "^0.18.0",
