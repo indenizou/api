@@ -34,6 +34,7 @@ const schema = new mongoose.Schema({
   status: {
     type: String,
     enum: config.pipelines,
+    default: config.piplines[0],
     required: [true, 'É necessário fornecer "status" (etapa do pipeline)'],
   },
 
@@ -45,7 +46,7 @@ const schema = new mongoose.Schema({
     unique_email_id: { type: String },
     status: {
       type: String,
-      enum: ['subscribed', 'unsubscribed', 'cleaned', 'pending', 'transactional'],
+      enum: ['subscribed', 'unsubscribed', 'cleaned', 'pending', 'transactional', 'failed'],
       required: [isProd, 'É necessário fornecer o status de inscricao (mailchimp)'],
     },
     abuse: { type: Boolean, default: false },

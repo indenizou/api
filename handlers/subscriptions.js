@@ -10,12 +10,12 @@ exports.subscribe = async (req, res) => {
   let subscriber;
 
   if (!sandbox) {
-    subscriber = await Mailchimp.subscribeUser(req.body)
-      .catch(({ status: n }) => res.status(n).json(Boom.boomify(subscriber, { statusCode: n })));
-
-    chimpData.mailchimp.status = subscriber.status;
-    chimpData.mailchimp.id = subscriber.id;
-    chimpData.mailchimp.unique_email_id = subscriber.unique_email_id;
+    try {
+      subscriber = await Mailchimp.subscribeUser(req.body);
+      chimpData.mailchimp.status = subscriber.status;
+      chimpData.mailchimp.id = subscriber.id;
+      chimpData.mailchimp.unique_email_id = subscriber.unique_email_id;
+    } catch (e) { chimpData.mailchimp.status = 'failed'; }
   }
 
   subscriber = await Customer.create(Object.assign(

@@ -47,7 +47,7 @@ class Mailchimp {
       data,
     })
       .then(r => r.data)
-      .catch(r => r.response.data);
+      .catch(r => new Error('Failed Subscribing at Mailchimp'));
   }
 
 
