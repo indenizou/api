@@ -36,7 +36,6 @@ app.options('*', cors());
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,PATCH,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin', 'X-Requested-With', 'Content-Type', 'Accept');
   next();
 });
 app.use(bodyParser.json({ limit: '5mb' }));
@@ -60,7 +59,7 @@ app.get('/subscribers', requireAuth, Lists.subscribers);
 app.get('/clients', requireAuth, Lists.byStatus);
 app.get('/customers', requireAuth, Lists.byStatus);
 app.get('/customer/:id', requireAuth, Lists.customer);
-app.put('/customer/:id', requireAuth, Lists.customer);
+app.put('/customer/:id', requireAuth, Lists.update);
 app.delete('/customer/:id', requireAuth, Lists.deleteCustomer);
 
 // Files

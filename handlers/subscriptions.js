@@ -27,6 +27,7 @@ exports.subscribe = async (req, res) => {
   return res.status(201).json(subscriber);
 };
 
+
 exports.subscribers = async (req, res) => {
   const customers = await Customer.find();
   return res.json(customers);
@@ -35,6 +36,18 @@ exports.subscribers = async (req, res) => {
 exports.customer = async ({ params }, res) => {
   const customer = await Customer.findById(params.id);
   return res.json(customer);
+};
+
+exports.update = async ({ params, body }, res) => {
+  let customer = await Customer.findById(params.id);
+  if (!customer) return res.status(404).json(Boom.notFound('Cliente não encontrado'));
+
+  customer = Object.assign(customer, body);
+
+  return customer.save((e) => {
+    if (e) return res.status(500).json(Boom.internal('Falho ao salvar cliente', e));
+    return res.json(customer);
+  });
 };
 
 exports.deleteCustomer = async ({ params, body }, res) => {

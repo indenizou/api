@@ -41,7 +41,7 @@ const schema = new mongoose.Schema({
   chatID: String,
 
   indication: {
-    contactby: { type: String, default: 'email', enum: ['email', 'whatsapp', 'phone'] },
+    contactby: { type: String, enum: ['email', 'whatsapp', 'phone'] },
     phone: { type: String, lowercase: true, trim: true, unique: true },
     email: {
       type: String,
