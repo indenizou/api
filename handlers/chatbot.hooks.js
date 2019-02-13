@@ -1,13 +1,14 @@
+/* eslint-disable no-console */
 const Boom = require('boom');
 const Customer = require('../models/customer.model');
 
-exports.saveData = async function saveData(req, res) {
+exports.saveData = (req, res) => {
   const mappedData = {
     chatID: req.chatID,
     email: req['SYSTEM.CLIENT_EMAIL'] || req['formulario.email'],
     name: req['SYSTEM.CLIENT_NAME'],
     phone: req['SYSTEM.CLIENT_NUMBER'] || req['formulario.phone'],
-    contactby: req['formulario.contactby'],
+    contactby: req['formulario.contactby'] || 'email',
     indication: {
       contactby: req['indicacao.contactby'],
       email: req['indicado_email.email'],
@@ -15,21 +16,25 @@ exports.saveData = async function saveData(req, res) {
     },
   };
 
-  const notFound = (e) => {
-    console.error('Customer not Found');
-    return res.status(404).json(Boom.notFound('Customer not Found', e));
-  };
+  return Customer.findOne({ email: mappedData.email }, (err, user) => {
+    if (err) return res.status(500).json(Boom.internal(err));
 
-  const customer = await Customer.findOne({ email: mappedData.email })
-    .catch(e => notFound(e));
+    if (!user) {
+      const newCustomer = new Customer(mappedData);
+      return newCustomer.save((errr) => {
+        if (errr) return res.status(500).json(Boom.internal(errr));
 
-  if (!customer) notFound();
+        console.info('Created user from Huggy Webhook');
+        return res.status(201).end();
+      });
+    }
 
-  const savedCustomer = await customer.set({ ...customer, ...mappedData }).save()
-    .catch((e) => {
-      console.error('Internal Error at saving entity on DB');
-      return res.send(Boom.internal('Internal Error at saving entity on DB', e))
+    // eslint-disable-next-line no-param-reassign
+    user = { ...user, ...mappedData };
+    return user.save((errr) => {
+      if (errr) return res.status(500).json(Boom.internal(errr));
+      console.info('Updated user from Huggy Webhook');
+      return res.status(201).end();
     });
-
-  return res.status(201).json(savedCustomer);
+  });
 };

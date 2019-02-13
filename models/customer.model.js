@@ -38,6 +38,20 @@ const schema = new mongoose.Schema({
     required: [true, 'É necessário fornecer "status" (etapa do pipeline)'],
   },
 
+  chatID: String,
+
+  indication: {
+    contactby: { type: String, default: 'email', enum: ['email', 'whatsapp', 'phone'] },
+    phone: { type: String, lowercase: true, trim: true, unique: true },
+    email: {
+      type: String,
+      lowercase: true,
+      trim: true,
+      unique: true,
+      match: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+    },
+  },
+
   mailchimp: {
     tags: { type: Array },
     id: { type: String },
