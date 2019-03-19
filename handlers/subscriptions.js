@@ -11,11 +11,16 @@ exports.subscribe = async ({ body }, res) => {
 
   if (!sandbox) {
     try {
+      console.log('Subscribing to mailchimp ...')
       subscriber = await Mailchimp.subscribeUser(body);
-      chimpData.mailchimp.status = subscriber.status;
+      console.log(subscriber)
+      chimpData.mailchimp.status = subscriber.status || 'subscribed';
       chimpData.mailchimp.id = subscriber.id;
       chimpData.mailchimp.unique_email_id = subscriber.unique_email_id;
-    } catch (e) { chimpData.mailchimp.status = 'failed'; }
+    } catch (e) {
+      chimpData.mailchimp.status = 'failed';
+      return res.status(400).json(Boom.badRequest(e))
+    }
   }
 
   subscriber = await Customer.create({ ...body, ...chimpData })
