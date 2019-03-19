@@ -28,8 +28,8 @@ class Mailchimp {
   */
   subscribeUser(body, list = this.list) {
     const data = {
-      email_address: body.email,
       status: 'subscribed',
+      email_address: body.email,
       tags: body.tags,
       merge_fields: {
         NAME: body.name,
@@ -47,7 +47,7 @@ class Mailchimp {
       data,
     })
       .then(r => r.data)
-      .catch(r => new Error('Failed Subscribing at Mailchimp'));
+      .catch(() => new Error('Failed Subscribing at Mailchimp'));
   }
 
 
