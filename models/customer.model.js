@@ -42,12 +42,11 @@ const schema = new mongoose.Schema({
 
   indication: {
     contactby: { type: String, enum: ['email', 'whatsapp', 'phone'] },
-    phone: { type: String, lowercase: true, trim: true, unique: true },
+    phone: { type: String, lowercase: true, trim: true },
     email: {
       type: String,
       lowercase: true,
       trim: true,
-      unique: true,
       match: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
     },
   },
