@@ -4,24 +4,25 @@ const Customer = require('../models/customer.model');
 const Mailchimp = require('./mailchimp-api');
 const config = require('../config');
 
-exports.subscribe = async (req, res) => {
-  const { sandbox } = req.body;
+exports.subscribe = async ({ body }, res) => {
+  const { sandbox } = body;
   const chimpData = { mailchimp: {} };
   let subscriber;
 
   if (!sandbox) {
     try {
-      subscriber = await Mailchimp.subscribeUser(req.body);
-      chimpData.mailchimp.status = subscriber.status;
+      console.log('Subscribing to mailchimp ...');
+      subscriber = await Mailchimp.subscribeUser(body);
+      console.log(subscriber);
+      chimpData.mailchimp.status = subscriber.status || 'subscribed';
       chimpData.mailchimp.id = subscriber.id;
       chimpData.mailchimp.unique_email_id = subscriber.unique_email_id;
-    } catch (e) { chimpData.mailchimp.status = 'failed'; }
+    } catch (e) {
+      chimpData.mailchimp.status = 'failed';
+    }
   }
 
-  subscriber = await Customer.create(Object.assign(
-    req.body,
-    chimpData,
-  ))
+  subscriber = await Customer.create({ ...body, ...chimpData })
     .catch(e => res.status(400).json(Boom.badRequest(e)));
 
   return res.status(201).json(subscriber);
