@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:11-alpine
 
 RUN echo '🐳 => Building Indenizou API...'
 
@@ -17,7 +17,7 @@ COPY package*.json yarn.lock* /usr/src/app/
 
 RUN apk --no-cache add --virtual native-deps \
 g++ gcc libgcc libstdc++ linux-headers make python && \
-yarn global add --silent node-pre-gyp node-gyp -g &&\
+yarn global add --silent node-pre-gyp node-gyp -g && \
 yarn install --silent && \
 apk del native-deps
 
@@ -29,7 +29,7 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 # Bundle app source
 COPY . /usr/src/app
 
-ARG PORT=1800
+ARG PORT=1810
 ENV PORT $PORT
 EXPOSE $PORT
 
