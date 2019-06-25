@@ -1,5 +1,4 @@
 /* eslint-disable no-use-before-define */
-const Boom = require('boom');
 const Customer = require('../models/customer.model');
 
 exports.chimpEventsHandler = async ({ body }, res) => {
@@ -20,7 +19,7 @@ exports.chimpEventsHandler = async ({ body }, res) => {
       return cleaned(body.data)(res);
 
     default:
-      return res.status(501).send(Boom.notImplemented(`Type: ${body.type} was not implemented yet.`));
+      return res.status(501).send(`Type: ${body.type} was not implemented yet.`);
   }
 };
 
@@ -51,9 +50,9 @@ const removeEmpty = obj => Object.keys(obj)
 async function saveData(data, res) {
   const opt = { new: true, upsert: true };
   const query = data.id ? { id: data.mailchimp.id } : { email: data.email || data.old_email };
-  const notFound = (e) => {
+  const notFound = (error) => {
     console.error('Customer not Found');
-    return res.status(404).json(Boom.notFound('Customer not Found', e));
+    return res.status(404).json({ message: 'Customer not Found', error });
   };
 
   const customer = await Customer.findOne(query, undefined, opt)
@@ -65,9 +64,9 @@ async function saveData(data, res) {
   if (data.new_email) customer.email = data.new_email; delete customer.new_email; delete customer.old_email;
 
   const savedCustomer = await customer.set({ ...customer, ...data }).save()
-    .catch((e) => {
+    .catch((error) => {
       console.error('Internal Error at saving entity on DB');
-      return res.send(Boom.internal('Internal Error at saving entity on DB', e))
+      return res.send({ message: 'Internal Error at saving entity on DB', error });
     });
 
   return res.status(201).json(savedCustomer);

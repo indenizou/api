@@ -1,4 +1,3 @@
-const Boom = require('boom');
 const { groupBy } = require('lodash');
 const Customer = require('../models/customer.model');
 const Mailchimp = require('./mailchimp-api');
@@ -23,7 +22,7 @@ exports.subscribe = async ({ body }, res) => {
   }
 
   subscriber = await Customer.create({ ...body, ...chimpData })
-    .catch(e => res.status(400).json(Boom.badRequest(e)));
+    .catch(e => res.status(400).json(e));
 
   return res.status(201).json(subscriber);
 };
@@ -41,19 +40,19 @@ exports.customer = async ({ params }, res) => {
 
 exports.update = async ({ params, body }, res) => {
   let customer = await Customer.findById(params.id);
-  if (!customer) return res.status(404).json(Boom.notFound('Cliente não encontrado'));
+  if (!customer) return res.status(404).json('Cliente não encontrado');
 
   customer = Object.assign(customer, body);
 
-  return customer.save((e) => {
-    if (e) return res.status(500).json(Boom.internal('Falho ao salvar cliente', e));
+  return customer.save((error) => {
+    if (error) return res.status(500).json({ message: 'Falho ao salvar cliente', error });
     return res.json(customer);
   });
 };
 
 exports.deleteCustomer = async ({ params, body }, res) => {
-  return Customer.findByIdAndDelete(params.id || body.id, (err, query) => {
-    if (err) return res.status(500).json(Boom.internal('Failed to delete client', err));
+  return Customer.findByIdAndDelete(params.id || body.id, (error, query) => {
+    if (error) return res.status(500).json({ message: 'Failed to delete client', error });
     return res.json(query);
   });
 };

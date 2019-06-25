@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-const Boom = require('boom');
 const Customer = require('../models/customer.model');
 
 exports.saveData = (req, res) => {
@@ -17,12 +16,12 @@ exports.saveData = (req, res) => {
   };
 
   return Customer.findOne({ email: mappedData.email }, (err, user) => {
-    if (err) return res.status(500).json(Boom.internal(err));
+    if (err) return res.status(500).json(err);
 
     if (!user) {
       const newCustomer = new Customer(mappedData);
       return newCustomer.save((errr) => {
-        if (errr) return res.status(500).json(Boom.internal(errr));
+        if (errr) return res.status(500).json(errr);
 
         console.info('Created user from Huggy Webhook');
         return res.status(201).end();
@@ -32,7 +31,7 @@ exports.saveData = (req, res) => {
     // eslint-disable-next-line no-param-reassign
     user = { ...user, ...mappedData };
     return user.save((errr) => {
-      if (errr) return res.status(500).json(Boom.internal(errr));
+      if (errr) return res.status(500).json(errr);
       console.info('Updated user from Huggy Webhook');
       return res.status(201).end();
     });

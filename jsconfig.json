@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
-    "target": "esnext"
+    "target": "esnext",
+		"baseUrl": "./",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true
   },
-  "include": [
-    "./**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/node_modules/*"
+  "include": ["./"],
+	"exclude": [
+		"**/node_modules/*",
+		"./public",
+		"./tmp",
+    "./dist",
+    "./build"
   ]
 }

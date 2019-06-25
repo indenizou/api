@@ -1,4 +1,3 @@
-const Boom = require('boom');
 const File = require('../models/files.model');
 
 module.exports = async ({ query }, res, next) => {
@@ -8,6 +7,6 @@ module.exports = async ({ query }, res, next) => {
     console.log('found file', !!foundFile, foundFile);
     if (foundFile) return next();
 
-    return res.status(401).send(Boom.unauthorized());
-  } catch (e) { return res.status(401).send(Boom.unauthorized()); }
+    return res.status(401).end();
+  } catch (e) { return res.status(401).end(); }
 };
