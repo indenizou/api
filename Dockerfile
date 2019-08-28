@@ -33,5 +33,5 @@ ARG PORT=1810
 ENV PORT $PORT
 EXPOSE $PORT
 
-CMD [ "npm", "start" ]
+CMD [ "yarn", "start" ]
 RUN echo '🐳 => Indenizou API built! ✅'
