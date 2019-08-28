@@ -1,4 +1,4 @@
-require('dotenv-extended').load(); // Expose environment variables on this document
+require('dotenv-defaults').load(); // Expose environment variables on this document
 const http = require('http');
 const express = require('express');
 const cors = require('cors');
