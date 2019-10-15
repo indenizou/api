@@ -15,10 +15,10 @@ ENV NODE_ENV $NODE_ENV
 # where available (npm@5+)
 COPY package*.json yarn.lock* /usr/src/app/
 
-RUN apk --no-cache add --virtual native-deps \
+RUN apk add --virtual native-deps \
 g++ gcc libgcc libstdc++ linux-headers make python && \
 yarn global add --silent node-pre-gyp node-gyp -g && \
-yarn install --silent --force && \
+yarn install --silent && \
 apk del native-deps
 
 # If you are building your code for production
