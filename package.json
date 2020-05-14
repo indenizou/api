@@ -31,7 +31,7 @@
     "sparkpost": "^2.1.4"
   },
   "devDependencies": {
-    "nodemon": "2.0.2"
+    "nodemon": "2.0.4"
   },
   "optionalDependencies": {
     "eslint": "^6.5.1",
